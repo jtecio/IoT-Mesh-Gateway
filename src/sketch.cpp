@@ -210,7 +210,7 @@ void loop() {
   if(myIP != getlocalIP()){
     myIP = getlocalIP();
     Serial.println("My IP is " + myIP.toString());
-    if (mqttClient.connect("meshymaster", mqttUser, mqttPassword)) {
+    if (mqttClient.connect("meshymaster", mqtt_username, mqtt_password, mqtt_lwt_topic, 1, true, "Offline")) {
       mqttClient.publish(mqtt_lwt_topic, "Online", true);
       // Send Boot message
       
@@ -227,6 +227,8 @@ void loop() {
       handle_tempsensor();
       previousMillis += JOB_PERIOD;
    }
+
+   ArduinoOTA.handle();
 
 }
 
